@@ -1,0 +1,22 @@
+---
+- hosts: ubuntu 
+  become: yes
+  tasks:
+ 
+    - name: install openjdk
+      apt:
+    
+        name: openjdk-8-jdk
+        state: present
+    
+    - name: install git 
+      apt:
+       
+        name: git
+        state: latest
+    
+    - name: install maven
+      apt: 
+
+        name: maven
+        state: latest
