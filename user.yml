@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+     
+    - name: create user prem
+      user:
+        name: prem
+        uid: 1100
+        shell: /bin/bash
+        home: /home/chandu
