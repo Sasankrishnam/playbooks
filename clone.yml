@@ -1,0 +1,18 @@
+---
+- hosts: ubuntu 
+  become: yes
+  tasks:
+
+  - name: clone vprofile repository
+    git:
+      repo: https://github.com/wkhanvisualpathit/VProfile.git
+      dest: /home/sasi/vprofile
+   
+  - name: build artifact
+    maven_artifact:
+      state: present
+      group_id: vprofile
+      artifact_id: web_app
+      repository_url: https://github.com/wkhanvisualpathit/VProfile.git
+      dest: /home/sasi/vprofile
+
