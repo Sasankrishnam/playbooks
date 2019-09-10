@@ -1,0 +1,28 @@
+---
+- hosts: all 
+  become: yes
+  ignore_errors: yes
+  tasks:
+
+  - name: download tomcat 8 
+    get_url:
+      url: http://apachemirror.wuchna.com/tomcat/tomcat-8/v8.5.45/bin/apache-tomcat-8.5.45.tar.gz
+      dest: /home/sasi
+    register: tomcatfile
+    tags: download
+
+  - name: print tomcatfile
+    debug:
+      msg: "{{tomcatfile}}"
+    tags: print
+
+  - name: extract tomcat file
+    unarchive:
+      src: "{{tomcatfile.dest}}"
+      dest: /home/sasi
+      remote_src: yes
+    tags: tar
+    register: extract
+
+  - name: start tomcat
+    shell: nohup /home/sasi/apache-tomcat-8.5.45/bin/startup.sh &
