@@ -1,0 +1,43 @@
+---
+- hosts: ubuntu
+  become: yes
+  tasks:
+
+  - name: install my-sql-server
+    apt:
+      name: mysql-server
+      state: present 
+    tags: sql
+
+  - name: install python 
+    apt: 
+      name: python
+      state: present
+    tags: python
+
+  - name: install mysql-python
+    apt:
+      name: python-mysqldb
+      state: present
+    tags: dependency
+
+  - name: start mysql service
+    service:
+      name: mysql
+      state: started
+
+  - name: create database mysql
+    mysql_db:
+      name: accounts
+      state: present
+    tags: db
+
+  - name: create mysql user
+    mysql_user:
+      name: admin
+      password: admin123 
+      priv: '*.*:ALL'
+      state: present
+    tags: user
+
+
